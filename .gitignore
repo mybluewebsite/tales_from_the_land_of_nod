@@ -1,2 +1,4 @@
 .venv
 envy.py
+.github
+__pycache__
