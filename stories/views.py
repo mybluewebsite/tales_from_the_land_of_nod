@@ -4,4 +4,4 @@ from .models import Tale
 
 class MyStoriesView(generic.ListView):
     queryset = Tale.objects.all()
-    template_name = "stories.html"
+    template_name = "my_stories.html"
