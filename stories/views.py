@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import generic
+from .models import Tale
 
-def my_stories(request):
-    return HttpResponse("Welcome to The Land of Nod's stories section!")
+class MyStoriesView(generic.ListView):
+    queryset = Tale.objects.all()
+    template_name = "story_list.html"
