@@ -40,7 +40,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="#">Home</a>
+                            href="{% url 'home' %}">Home</a>
                     </li>
 
                 </ul>
@@ -54,14 +54,18 @@
     <main class="flex-shrink-0 main-bg">
 
         {% block content %}
-        <!-- Content Goes here -->
+        
         {% endblock content %}
 
     </main>
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3 dark-bg">
-        <p class="m-0 text-center text-white">Made by mybluewebsite</p>
+        <p class="m-0 text-center text-white">
+            {% block copyright %}
+            Made by mybluewebsite
+            {% endblock copyright %}
+        </p>
         <p class="m-0 text-center text-white">© 2023 Tales from the Land of Nod</p>
         <p class="m-0 text-center text-white">All rights reserved</p>
     </footer>
