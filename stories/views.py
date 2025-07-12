@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Tale
 
-class TaleList(generic.ListView):
+class Stories(generic.ListView):
     queryset = Tale.objects.filter(status=1).order_by("-created_on")
     context_object_name = "stories"
     template_name = "stories/index.html"

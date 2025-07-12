@@ -1,6 +1,6 @@
 {% load static %}
 
-{% url 'home' as home_url %}
+{% url "stories" as home_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -30,7 +30,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><span class="brand"><span class="red-o"></span><span
+            <a class="navbar-brand" href="{% url 'stories' %}"><span class="brand"><span class="red-o"></span><span
                         class="thin"></span></span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'home' %}">Home</a>
+                            href="{% url 'stories' %}">Stories</a>
                     </li>
 
                 </ul>
@@ -66,8 +66,9 @@
             Made by mybluewebsite
             {% endblock copyright %}
         </p>
-        <p class="m-0 text-center text-white">© 2023 Tales from the Land of Nod</p>
-        <p class="m-0 text-center text-white">All rights reserved</p>
+        <p class="m-0 text-center text-white">All rights reserved
+
+        </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
