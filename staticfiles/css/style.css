@@ -93,17 +93,17 @@ body {
     z-index: 100;
 }
 
-.post-link {
+.tale-link {
     text-decoration: none;
     color: #2C3E50;
 }
 
-.post-link:hover,
-.page-link {
+.tale-link:hover,
+.tale-link {
     color: #27AE60;
 }
 
-.post-title {
+.tale-title {
     margin-top: 10%;
     margin-left: 5%;
     font-family: 'Chewy', cursive;
@@ -111,7 +111,7 @@ body {
     color: #3B5998;
 }
 
-.post-subtitle {
+.tale-subtitle {
     margin-left: 5%;
     color: lightgray;
 }

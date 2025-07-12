@@ -18,7 +18,7 @@
                                     <p class="author">Author: {{ tale.author }}</p>
                                 </div>
                             </div>
-                            <a href="#" class="post-link">
+                            <a href="{% url 'tale_detail' tale.slug %}" class="tale-link">
                                 <h2 class="card-title">{{ tale.title }}</h2>
                                     <p class="card-text">{{ tale.blurb }}</p>
                             </a>
@@ -44,12 +44,12 @@
             {% if page_obj.has_previous %}
             <li>
                 <a href="?page={{ page_obj.previous_page_number }}"
-                    class="page-link">&laquo; PREV</a>
+                    class="tale-link">&laquo; PREV</a>
             </li>
             {% endif %}
             {% if page_obj.has_next %}
             
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            <li><a href="?page={{ page_obj.next_page_number }}" class="tale-link"> NEXT &raquo;</a></li>
             {% endif %}
         </ul>
     </nav>
