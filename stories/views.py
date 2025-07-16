@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Tale
+from .forms import SuggestionForm
 
 class Stories(generic.ListView):
     queryset = Tale.objects.filter(status=1).order_by("-created_on")
@@ -24,9 +25,17 @@ def tale_detail(request, slug):
 
     queryset = Tale.objects.filter(status=1)
     tale = get_object_or_404(queryset, slug=slug)
+    suggestions = tale.comments.all().order_by("-created_on")
+    suggestion_count = tale.comments.filter(approved=True).count()
+    suggestion_form = SuggestionForm()
 
     return render(
         request,
         "stories/tale_detail.html",
-        {"tale": tale},
+        {
+            "tale": tale, 
+            "suggestions": suggestions, 
+            "suggestion_count": suggestion_count,
+            "suggestion_form": suggestion_form,
+        },
     )
