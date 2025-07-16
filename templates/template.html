@@ -1,7 +1,10 @@
 {% load static %}
 
-{% url "stories" as home_url %}
 {% url 'showcase' as showcase_url %}
+{% url "stories" as home_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
 <html class="h-100" lang="en">
@@ -38,10 +41,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'stories' %}"
-          ><span class="brand"
-            ><span class="red-o"></span><span class="thin"></span></span
-        ></a>
+        <a class="navbar-brand" href="{% url 'stories' %}">Tales from the Land of Nod</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -71,6 +71,33 @@
                 >Showcase</a
               >
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == logout_url %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'account_logout' %}"
+                >Logout</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == signup_url %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'account_signup' %}"
+                >Register</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == login_url %}active{% endif %}"
+                aria-current="page"
+                href="{% url 'account_login' %}"
+                >Login</a
+              >
+            </li>
+            {% endif %}
           </ul>
           <span class="navbar-text text-muted">
             Tales from the Land of Nod

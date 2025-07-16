@@ -23,10 +23,10 @@ def tale_detail(request, slug):
     """
 
     queryset = Tale.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
+    tale = get_object_or_404(queryset, slug=slug)
 
     return render(
         request,
         "stories/tale_detail.html",
-        {"tale": post},
+        {"tale": tale},
     )

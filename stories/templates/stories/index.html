@@ -4,61 +4,58 @@
 
 <!-- index.html content starts here -->
 <div class="container-fluid">
-    <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-12 mt-3 left">
-            <div class="row">
-                {% for tale in tale_list %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="image-container">
-                                <div class="image-flash">
-                                    <p class="author">Author: {{ tale.author }}</p>
-                                </div>
-                            </div>
-                            <a href="{% url 'tale_detail' tale.slug %}" class="tale-link">
-                                <h2 class="card-title">{{ tale.title }}</h2>
-                                    <p class="card-text">{{ tale.blurb }}</p>
-                            </a>
-
-                            <hr />
-                            <p class="card-text text-muted h6">{{ tale.created_on}}
-                            </p>
-                        </div>
-                    </div>
+  <div class="row">
+    <!-- Blog Entries Column -->
+    <div class="col-12 mt-3 left">
+      <div class="row">
+        {% for tale in tale_list %}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="image-container">
+                <div class="image-flash">
+                  <p class="author">Author: {{ tale.author }}</p>
                 </div>
-                {% if forloop.counter|divisibleby:3 %}
-            </div>
-            <div class="row">
-                {% endif %}
-                {% endfor %}
+              </div>
+              <a href="{% url 'tale_detail' tale.slug %}" class="tale-link">
+                <h2 class="card-title">{{ tale.title }}</h2>
+                <p class="card-text">{{ tale.blurb }}</p>
+              </a>
 
+              <hr />
+              <p class="card-text text-muted h6">{{ tale.created_on }}</p>
             </div>
+          </div>
         </div>
+        {% if forloop.counter|divisibleby:3 %}
+      </div>
+      <div class="row">{% endif %} {% endfor %}</div>
     </div>
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li>
-                <a href="?page={{ page_obj.previous_page_number }}"
-                    class="tale-link">&laquo; PREV</a>
-            </li>
-            {% endif %}
-            {% if page_obj.has_next %}
-            
-            <li><a href="?page={{ page_obj.next_page_number }}" class="tale-link"> NEXT &raquo;</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
+  </div>
+  {% if is_paginated %}
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li>
+        <a href="?page={{ page_obj.previous_page_number }}" class="tale-link"
+          >&laquo; PREV</a
+        >
+      </li>
+      {% endif %} {% if page_obj.has_next %}
+
+      <li>
+        <a href="?page={{ page_obj.next_page_number }}" class="tale-link">
+          NEXT &raquo;</a
+        >
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
 </div>
 
 <!-- index.html content ends here -->
 {% endblock %}
 
-{% block copyright %}
-    Copyright 2025 Tales from the Land of Nod
+{% block copyright %} Copyright 2025 | Tales from the Land of Nod
 {% endblock %}
