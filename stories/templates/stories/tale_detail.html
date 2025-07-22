@@ -62,10 +62,10 @@
           </div>
           {% if not suggestion.approved and suggestion.author == user %}
           <p class="approval">This suggestion is awaiting approval.</p>
-          {% endif %} {% if user.is_authenticated and suggestion.author == user %}
-          <button class="btn btn-edit" comment_id="{{ suggestion.id }}">
-            Edit
-          </button>
+          {% endif %}
+          {% if user.is_authenticated and suggestion.author == user %}
+          <button class="btn btn-delete" suggestion_id="{{ suggestion.id }}">Delete</button>
+          <button class="btn btn-edit" suggestion_id="{{ suggestion.id }}">Edit</button>
           {% endif %}
         </div>
         <!-- Our for loop ends here -->
@@ -92,4 +92,32 @@
   </div>
 </div>
 
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1"
+  aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"
+          id="deleteModalLabel">Delete suggestion</h5>
+        <button type="button" class="btn-close"
+          data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your suggestion?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"
+          data-bs-dismiss="modal">Close</button>
+        <a id="deleteConfirm" href="#" class="btn
+          btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
+
+{% block extras %}
+<script src="{% static 'js/suggestions.js' %}"></script>
+{% endblock %}

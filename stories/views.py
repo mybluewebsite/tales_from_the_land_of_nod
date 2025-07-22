@@ -40,7 +40,7 @@ def tale_detail(request, slug):
             suggestion.save()
             messages.add_message(
                 request, messages.SUCCESS,
-                'Comment submitted and awaiting approval'
+                'Suggestion submitted and awaiting approval'
             )
 
     suggestion_form = SuggestionForm()
@@ -75,5 +75,21 @@ def edit_suggestion(request, slug, comment_id):
             messages.add_message(request, messages.SUCCESS, 'Suggestion Updated!')
         else:
             messages.add_message(request, messages.ERROR, 'Error updating suggestion!')
+
+    return HttpResponseRedirect(reverse('tale_detail', args=[slug]))
+
+def delete_suggestion(request, slug, suggestion_id):
+    """
+    view to delete suggestion
+    """
+    queryset = Tale.objects.filter(status=1)
+    tale = get_object_or_404(queryset, slug=slug)
+    suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+
+    if suggestion.author == request.user:
+        suggestion.delete()
+        messages.add_message(request, messages.SUCCESS, 'Suggestion deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, 'You can only delete your own suggestions!')
 
     return HttpResponseRedirect(reverse('tale_detail', args=[slug]))
