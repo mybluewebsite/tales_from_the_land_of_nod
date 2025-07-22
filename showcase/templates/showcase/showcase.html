@@ -1,16 +1,14 @@
-{% extends 'template.html' %}
-{% block content %}
+{% extends 'base.html' %}
 {% load static %}
+{% block content %}
 
 <div class="container mt-5">
   <div class="row">
-    <div class="col-4 text-center">
+    <div class="col-12 col-md-4 text-center">
       <img src="{% static 'images/#' %}" width="75%" />
     </div>
-    <div class="col-8">
-      <!-- Title goes between these h2 tags -->
+    <div class="col-12 col-md-8">
       <h2>{{ showcase.title }}</h2>
-      <!-- Content goes directly underneath this -->
       {{ showcase.content | safe }}
     </div>
   </div>
@@ -19,6 +17,14 @@
       <!-- Updated on field goes in here -->
 
       <p class="text-end"><em>Updated on: {{ showcase.updated_on }}</em></p>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 my-5">
+      <h2>Let's collaborate!</h2>
+
+      <!-- add your form here. Your submit button should 
+          have the classes of btn, btn-secondary -->
     </div>
   </div>
 </div>
