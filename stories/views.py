@@ -1,8 +1,9 @@
 from urllib import request
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from django.contrib import messages
-from .models import Tale
+from django.http import HttpResponseRedirect
+from .models import Tale, Suggestion
 from .forms import SuggestionForm
 
 class Stories(generic.ListView):
@@ -54,3 +55,25 @@ def tale_detail(request, slug):
             "suggestion_form": suggestion_form,
         },
     )
+
+def edit_suggestion(request, slug, comment_id):
+    """
+    view to edit suggestions on a tale.
+    """
+    if request.method == "POST":
+
+        queryset = Tale.objects.filter(status=1)
+        post = get_object_or_404(queryset, slug=slug)
+        suggestion = get_object_or_404(Suggestion, pk=comment_id)
+        suggestion_form = SuggestionForm(data=request.POST, instance=suggestion)
+
+        if suggestion_form.is_valid() and suggestion.author == request.user:
+            suggestion = suggestion_form.save(commit=False)
+            suggestion.post = post
+            suggestion.approved = False
+            suggestion.save()
+            messages.add_message(request, messages.SUCCESS, 'Suggestion Updated!')
+        else:
+            messages.add_message(request, messages.ERROR, 'Error updating suggestion!')
+
+    return HttpResponseRedirect(reverse('tale_detail', args=[slug]))

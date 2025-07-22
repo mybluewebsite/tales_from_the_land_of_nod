@@ -3,35 +3,32 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
 <div class="masthead">
-    <div class="container">
-        <div class="row g-0">
-            <div class="col-md-6 masthead-text">
-                <!-- Tale title goes in these h1 tags -->
-                <h1 class="tale-title">{{ tale.title }}</h1>
-                <!-- Tale author goes before the | the post's created date goes after -->
-                <p class="tale-subtitle">{{ tale.author }} | {{ tale.created_on }}</p>
-            </div>
-            <div class="d-none d-md-block col-md-6 masthead-image">
-                <img src="{% static 'images/#' %}" class="scale" alt="placeholder">
-            </div>
-        </div>
+  <div class="container">
+    <div class="row g-0">
+      <div class="col-md-6 masthead-text">
+        <h1 class="tale-title">{{ tale.title }}</h1>
+        <p class="tale-subtitle">{{ tale.author }} | {{ tale.created_on }}</p>
+      </div>
+      <div class="d-none d-md-block col-md-6 masthead-image">
+        <img src="{% static 'images/#' %}" class="scale" alt="placeholder" />
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col card mb-4  mt-3 left  top">
-            <div class="card-body">
-                <!-- The tale content goes inside the card-text. -->
-                <!-- Use the | safe filter inside the template tags -->
-                <p class="card-text">
-                    {{ tale.content | safe }}
-                </p>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col card mb-4 mt-3 left top">
+      <div class="card-body">
+        <!-- The tale content goes inside the card-text. -->
+        <!-- Use the | safe filter inside the template tags -->
+        <p class="card-text">{{ tale.content | safe }}</p>
+      </div>
     </div>
-      <!-- Displaying count of comments -->
+  </div>
+  <!-- Displaying count of comments -->
   <div class="row">
     <div class="col-12">
       <strong class="text-secondary">
@@ -39,51 +36,53 @@
       </strong>
     </div>
     <div class="col-12">
-      <hr>
+      <hr />
     </div>
   </div>
   <!-- Displaying Comments -->
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 ">
+    <div class="col-md-8 card mb-4 mt-3">
       <h3>Suggestions:</h3>
       <div class="card-body">
         <!-- We want a for loop inside the empty control tags
           to iterate through each comment in comments -->
         {% for suggestion in suggestions %}
-        <div class="p-2 comments
-          {% if not suggestion.approved and suggestion.author == user %}
-          faded{% elif not suggestion.approved %} d-none{% endif %}">
+        <div
+          class="p-2 comments {% if not suggestion.approved and suggestion.author == user %} faded{% elif not suggestion.approved %} d-none{% endif %}"
+        >
           <p class="font-weight-bold">
             {{ suggestion.author }}
             <span class="font-weight-normal">
               {{ suggestion.created_on }}
-            </span> wrote:
+            </span>
+            wrote:
           </p>
           <div id="comment{{ suggestion.id }}">
             {{ suggestion.body | linebreaks }}
           </div>
           {% if not suggestion.approved and suggestion.author == user %}
-          <p class="approval">
-            This suggestion is awaiting approval
-          </p>
+          <p class="approval">This suggestion is awaiting approval.</p>
+          {% endif %} {% if user.is_authenticated and suggestion.author == user %}
+          <button class="btn btn-edit" comment_id="{{ suggestion.id }}">
+            Edit
+          </button>
           {% endif %}
         </div>
         <!-- Our for loop ends here -->
         {% endfor %}
       </div>
     </div>
-        <!-- Creating New Suggestions -->
+    <!-- Creating New Suggestions -->
     <div class="col-md-4 card mb-4 mt-3">
       <div class="card-body">
         {% if user.is_authenticated %}
         <h3>Leave a suggestion:</h3>
         <p>Posting as: {{ user.username }}</p>
-        <form id="suggestionForm" method="post"
-          style="margin-top: 1.3em;">
-          {{ suggestion_form | crispy }}
-          {% csrf_token %}
-          <button id="submitButton" type="submit"
-            class="btn btn-signup btn-lg">Submit</button>
+        <form id="suggestionForm" method="post" style="margin-top: 1.3em">
+          {{ suggestion_form | crispy }} {% csrf_token %}
+          <button id="submitButton" type="submit" class="btn btn-signup btn-lg">
+            Submit
+          </button>
         </form>
         {% else %}
         <p>Log in to leave a suggestion</p>
