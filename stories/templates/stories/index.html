@@ -20,12 +20,11 @@
                 <h2 class="card-title">{{ tale.title }}</h2>
                 <p class="card-text">{{ tale.blurb }}</p>
               </a>
-              <p class="card-text text-muted h6">Category: {{ tale.category }}</p>
-              <p class="card-text text-muted h6">{{ tale.created_on }}</p>
+              <p class="card-text card-created text-muted h6">{{ tale.created_on }}</p>
             </div>
           </div>
         </div>
-        {% if forloop.counter|divisibleby:3 %}  
+        {% if forloop.counter|divisibleby:3 %}
       </div>
       <div class="row">{% endif %} {% endfor %}</div>
     </div>
