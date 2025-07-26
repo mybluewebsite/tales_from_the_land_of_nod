@@ -5,12 +5,13 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Tale, Suggestion
 from .forms import SuggestionForm
+from django.contrib.auth.decorators import login_required
 
 class Stories(generic.ListView):
     queryset = Tale.objects.filter(status=1).order_by("-created_on")
     context_object_name = "stories"
     template_name = "stories/index.html"
-    paginate_by = 3
+    paginate_by = 6
 
 def tale_detail(request, slug):
     """
@@ -56,25 +57,28 @@ def tale_detail(request, slug):
         },
     )
 
+@login_required
 def edit_suggestion(request, slug, suggestion_id):
-    """
-    view to edit suggestions on a tale.
-    """
+    tale = get_object_or_404(Tale, slug=slug, status=1)
+    suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
+
+    if suggestion.author != request.user:
+        messages.error(request, "You are not authorised to edit this suggestion.")
+        return HttpResponseRedirect(reverse("tale_detail", args=[slug]))
+
     if request.method == "POST":
-
-        queryset = Tale.objects.filter(status=1)
-        tale = get_object_or_404(queryset, slug=slug)
-        suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
-        suggestion_form = SuggestionForm(data=request.POST, instance=suggestion)
-
-        if suggestion_form.is_valid() and suggestion.author == request.user:
+        suggestion_form = SuggestionForm(request.POST, instance=suggestion)
+        if suggestion_form.is_valid():
             suggestion = suggestion_form.save(commit=False)
             suggestion.tale = tale
             suggestion.approved = False
             suggestion.save()
-            messages.add_message(request, messages.SUCCESS, "Suggestion Updated!")
+            messages.success(request, "Suggestion updated and awaiting re-approval!")
         else:
-            messages.add_message(request, messages.ERROR, "Error updating suggestion!")
+            messages.error(request, "Error updating suggestion: Invalid data.")
+    else:
+        suggestion_form = SuggestionForm(instance=suggestion)
+        pass
 
     return HttpResponseRedirect(reverse("tale_detail", args=[slug]))
 
