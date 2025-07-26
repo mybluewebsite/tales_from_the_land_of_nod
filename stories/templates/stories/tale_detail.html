@@ -12,7 +12,7 @@
         <p class="tale-subtitle">{{ tale.author }} | {{ tale.created_on }}</p>
       </div>
       <div class="d-none d-md-block col-md-6 masthead-image">
-        <img src="{% static 'images/bedtime-tale.jpg' %}" class="scale" alt="placeholder" />
+        <img src="{% static 'images/bedtime-tale.jpg' %}" class="scale" alt="A mother reading a bedtime story to her child" />
       </div>
     </div>
   </div>
@@ -22,13 +22,13 @@
   <div class="row">
     <div class="col card mb-4 mt-3 left top">
       <div class="card-body">
-        <!-- The tale content goes inside the card-text. -->
-        <!-- Use the | safe filter inside the template tags -->
+        <!-- The tale content goes inside the card-text -->
+        <!-- Use the "| safe " filter inside the template tags -->
         <p class="card-text">{{ tale.content | safe }}</p>
       </div>
     </div>
   </div>
-  <!-- Displaying count of comments -->
+  <!-- Displaying count of suggestions -->
   <div class="row">
     <div class="col-12">
       <strong class="text-secondary">
@@ -39,13 +39,13 @@
       <hr />
     </div>
   </div>
-  <!-- Displaying Comments -->
+  <!-- Displaying suggestions -->
   <div class="row">
     <div class="col-md-8 card mb-4 mt-3">
       <h3>Suggestions:</h3>
       <div class="card-body">
         <!-- We want a for loop inside the empty control tags
-          to iterate through each comment in comments -->
+          to iterate through each suggestion in suggestions -->
         {% for suggestion in suggestions %}
         <div
           class="p-2 comments {% if not suggestion.approved and suggestion.author == user %} faded{% elif not suggestion.approved %} d-none{% endif %}"
@@ -57,7 +57,7 @@
             </span>
             wrote:
           </p>
-          <div id="comment{{ suggestion.id }}">
+          <div id="suggestion{{ suggestion.id }}">
             {{ suggestion.body | linebreaks }}
           </div>
           {% if not suggestion.approved and suggestion.author == user %}
@@ -68,11 +68,11 @@
           <button class="btn btn-edit" suggestion_id="{{ suggestion.id }}">Edit</button>
           {% endif %}
         </div>
-        <!-- Our for loop ends here -->
+        <!-- The for loop ends here -->
         {% endfor %}
       </div>
     </div>
-    <!-- Creating New Suggestions -->
+    <!-- Creating new suggestions -->
     <div class="col-md-4 card mb-4 mt-3">
       <div class="card-body">
         {% if user.is_authenticated %}

@@ -28,8 +28,8 @@ def tale_detail(request, slug):
 
     queryset = Tale.objects.filter(status=1)
     tale = get_object_or_404(queryset, slug=slug)
-    suggestions = tale.comments.all().order_by("-created_on")
-    suggestion_count = tale.comments.filter(approved=True).count()
+    suggestions = tale.suggestions.all().order_by("-created_on")
+    suggestion_count = tale.suggestions.filter(approved=True).count()
 
     if request.method == "POST":
         suggestion_form = SuggestionForm(data=request.POST)
@@ -40,7 +40,7 @@ def tale_detail(request, slug):
             suggestion.save()
             messages.add_message(
                 request, messages.SUCCESS,
-                'Suggestion submitted and awaiting approval'
+                "Suggestion submitted and awaiting approval"
             )
 
     suggestion_form = SuggestionForm()
@@ -56,27 +56,27 @@ def tale_detail(request, slug):
         },
     )
 
-def edit_suggestion(request, slug, comment_id):
+def edit_suggestion(request, slug, suggestion_id):
     """
     view to edit suggestions on a tale.
     """
     if request.method == "POST":
 
         queryset = Tale.objects.filter(status=1)
-        post = get_object_or_404(queryset, slug=slug)
-        suggestion = get_object_or_404(Suggestion, pk=comment_id)
+        tale = get_object_or_404(queryset, slug=slug)
+        suggestion = get_object_or_404(Suggestion, pk=suggestion_id)
         suggestion_form = SuggestionForm(data=request.POST, instance=suggestion)
 
         if suggestion_form.is_valid() and suggestion.author == request.user:
             suggestion = suggestion_form.save(commit=False)
-            suggestion.post = post
+            suggestion.tale = tale
             suggestion.approved = False
             suggestion.save()
-            messages.add_message(request, messages.SUCCESS, 'Suggestion Updated!')
+            messages.add_message(request, messages.SUCCESS, "Suggestion Updated!")
         else:
-            messages.add_message(request, messages.ERROR, 'Error updating suggestion!')
+            messages.add_message(request, messages.ERROR, "Error updating suggestion!")
 
-    return HttpResponseRedirect(reverse('tale_detail', args=[slug]))
+    return HttpResponseRedirect(reverse("tale_detail", args=[slug]))
 
 def delete_suggestion(request, slug, suggestion_id):
     """
@@ -88,8 +88,8 @@ def delete_suggestion(request, slug, suggestion_id):
 
     if suggestion.author == request.user:
         suggestion.delete()
-        messages.add_message(request, messages.SUCCESS, 'Suggestion deleted!')
+        messages.add_message(request, messages.SUCCESS, "Suggestion deleted!")
     else:
-        messages.add_message(request, messages.ERROR, 'You can only delete your own suggestions!')
+        messages.add_message(request, messages.ERROR, "You can't delete this suggestion!")
 
-    return HttpResponseRedirect(reverse('tale_detail', args=[slug]))
+    return HttpResponseRedirect(reverse("tale_detail", args=[slug]))

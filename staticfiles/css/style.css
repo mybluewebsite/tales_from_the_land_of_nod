@@ -116,6 +116,59 @@ body {
     color: lightgray;
 }
 
+.tale-author {
+    margin-left: 5%;
+    color: #3B5998;
+    font-weight: bold;
+}
+
+.tale-content {
+    margin: 5%;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #2C3E50;
+}
+
+.tale-suggestions {
+    margin: 5%;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #2C3E50;
+}
+
+.btn {
+    border-radius: 0;
+    font-weight: 600;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #3B5998;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: #fff;
+    color: #3B5998;
+    border: 1px solid #3B5998;
+}
+
+.btn-secondary {
+    background-color: #23BBBB;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+    background-color: #fff;
+    color: #23BBBB;
+    border: 1px solid #23BBBB;
+}
+
 .btn-signup,
 .btn-edit {
     background-color: #188181;

@@ -13,25 +13,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Google Fonts CSS -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Chewy&family=Imprima&family=Quicksand:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Imprima&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome CSS -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
     />
 
     <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
@@ -88,7 +87,7 @@
                 class="nav-link {% if request.path == signup_url %}active{% endif %}"
                 aria-current="page"
                 href="{% url 'account_signup' %}"
-                >Register</a
+                >Signup</a
               >
             </li>
             <li class="nav-item">
@@ -102,7 +101,7 @@
             {% endif %}
           </ul>
           <span class="navbar-text text-muted">
-            Tales from the Land of Nod
+            Created by mybluewebsite
           </span>
         </div>
       </div>
@@ -142,14 +141,14 @@
     <!-- Footer -->
     <footer class="footer mt-auto py-3 dark-bg">
       <p class="m-0 text-center text-white">
-        {% block copyright %} Made by mybluewebsite {% endblock copyright %}
+        {% block copyright %} Copyright 2025 | Tales from the Land of Nod {% endblock copyright %}
       </p>
       <p class="m-0 text-center text-white">All rights reserved</p>
     </footer>
 
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
       crossorigin="anonymous"
     ></script>
 
